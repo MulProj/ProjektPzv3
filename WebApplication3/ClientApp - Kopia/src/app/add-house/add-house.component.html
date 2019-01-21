@@ -1,0 +1,65 @@
+<div *ngIf="stan ==null"></div>
+<div *ngIf="stan ==1" class="alert alert-success" role="alert">
+  Pomyślnie dodano dom
+</div>
+<div *ngIf="stan ==2" class="alert alert-danger" role="alert">
+  Dom nie został dodany. Spróbuj ponownie
+</div>
+
+<form name="form" (ngSubmit)="houseForm.form.valid && addHouse(newHouse)" #houseForm="ngForm" novalidate>
+  <div class="form-group">
+      <label for="postCode">Kod pocztowy</label>
+      <input type="text" class="form-control" name="postCode" [(ngModel)]="newHouse.postCode" #postCode="ngModel" [ngClass]="{ 'is-invalid': houseForm.submitted && postCode.invalid }" required />
+      <div *ngIf="houseForm.submitted && postCode.invalid" class="invalid-feedback">
+          <div *ngIf="postCode.errors.required" class="text-danger">Kod pocztowy jest wymagany</div>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="town">Miasto</label>
+    <input type="text" class="form-control" name="town" [(ngModel)]="newHouse.town" #town="ngModel" [ngClass]="{ 'is-invalid': houseForm.submitted && town.invalid }" required />
+    <div *ngIf="houseForm.submitted && town.invalid" class="invalid-feedback">
+        <div *ngIf="town.errors.required" class="text-danger">Miasto jest wymagane</div>
+    </div>
+</div>
+
+  <div class="form-group">
+    <label for="street">Ulica</label>
+    <input type="text" class="form-control" name="street" [(ngModel)]="newHouse.street" #street="ngModel" [ngClass]="{ 'is-invalid': houseForm.submitted && street.invalid }" required />
+    <div *ngIf="houseForm.submitted && street.invalid" class="invalid-feedback">
+        <div *ngIf="street.errors.required" class="text-danger">Miasto jest wymagane</div>
+    </div>
+</div>
+
+<div class="form-group">
+  <label for="houseNumber">Number mieszkania</label>
+  <input type="text" class="form-control" name="houseNumber" [(ngModel)]="newHouse.houseNumber" #houseNumber="ngModel" [ngClass]="{ 'is-invalid': houseForm.submitted && houseNumber.invalid }" required />
+  <div *ngIf="houseForm.submitted && houseNumber.invalid" class="invalid-feedback">
+      <div *ngIf="houseNumber.errors.required" class="text-danger">Miasto jest wymagane</div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="description">Opis</label>
+  <input type="text" class="form-control" name="description" [(ngModel)]="newHouse.description" #description="ngModel" [ngClass]="{ 'is-invalid': houseForm.submitted && description.invalid }" required />
+  <div *ngIf="houseForm.submitted && description.invalid" class="invalid-feedback">
+      <div *ngIf="description.errors.required" class="text-danger">Opis mieszkania jest wymagany</div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="plan">Plan mieszkania</label>
+  <input #file type="file" multiple (change)="getBase64($event)" />  
+</div>
+
+
+
+
+
+
+  <div class="form-group">
+      <button class="btn btn-success">Dodaj mieszkanie</button>
+  </div>
+</form>
+
+

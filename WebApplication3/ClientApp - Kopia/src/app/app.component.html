@@ -1,0 +1,33 @@
+<div class="alert alert-danger" id="alarm" *ngIf="sensorsAlert.length>0; else noAlarm" >
+  <div role="alert">
+    <h3>Aktywowane czujniki</h3>
+    <ul *ngFor="let ta of sensorsAlert">
+      <li> Sensor o nazwie <b>{{ta.name}}</b> został aktywowany. </li>
+    </ul>
+  </div>
+</div>
+<ng-template #noAlarm>
+    <div class="alert alert-success" id="alarm">
+      <h3>Żaden czujnik nie został aktywowany</h3>
+    </div>
+
+</ng-template>
+
+
+
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <div id="nav">
+<app-navigation></app-navigation>
+  </div>
+
+  <div id="page-wrapper">
+    
+    <router-outlet></router-outlet>
+    
+  </div>
+  <!-- /#page-wrapper -->
+
+</div>
+

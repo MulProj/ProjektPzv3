@@ -1,0 +1,48 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Lp.</th>
+        <th scope="col">Kod pocztowy</th>
+        <th scope="col">Miejscowość</th>
+        <th scope="col">Ulica</th>
+        <th scope="col">Nr budynku</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Operacje</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let h of allHouses$ | async; index as i">  
+      
+      <tr >
+        <td>{{i+1}}</td>
+        <td>{{h.postCode}}</td>
+        <td>{{h.town}}</td>
+        <td>{{h.street}}</td>
+        <td>{{h.houseNumber}}</td>
+        <td>{{h.description}}</td>
+        <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary" (click)="addSensorOption(h.houseId)">Dodaj czujniki</button>
+              <button type="button" class="btn btn-primary" (click)="statusSensorOption(h.houseId)">Stan czujników</button>
+              <button type="button" class="btn btn-primary" (click)="history(h.houseId)">Historia</button>
+              <button type="button" class="btn btn-danger" (click)="delHouse(h.houseId)">Usuń dom</button>     
+            </div> 
+        </td>
+      </tr>
+      <tr *ngIf="selectedHouse == h.houseId && operacja !=0"> 
+        <td colspan="7">
+          <div *ngIf="operacja ==0"></div>
+          <div *ngIf="operacja ==1"><app-add-sensors [houseId]="h.houseId" [plan]="h.image"></app-add-sensors></div>
+          <div *ngIf="operacja ==2"><app-view-sensors [houseId]="h.houseId"></app-view-sensors></div>
+          <div *ngIf="operacja ==3"><app-history [houseId]="h.houseId"></app-history></div>
+         
+        </td>
+      </tr>
+    
+ 
+    </tbody>
+  </table>
+
+
+
+
+

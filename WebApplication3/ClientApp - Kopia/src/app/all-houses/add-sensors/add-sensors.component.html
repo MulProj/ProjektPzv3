@@ -1,0 +1,185 @@
+
+
+<div id="przejscie">
+<!--FORMULARZ DODAWANIA CZUJNIKA TEMPERATURY-->
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3"> 
+                      <h3>Czujniki temperatury</h3>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                            <div class="huge">{{numberTemperatureSensor}}</div>
+                            <div>Twoje czujniki</div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <form name="form" (ngSubmit)="tempForm.form.valid && addTempSensor(newTemperatureSensor)" #tempForm="ngForm" novalidate>
+                        <div class="form-group">
+                            <label for="nameTempSensor">Nazwa czujnika</label>
+                            <input type="text" class="form-control" name="nameTempSensor" [(ngModel)]="newTemperatureSensor.name" #nameTempSensor="ngModel" [ngClass]="{ 'is-invalid': tempForm.submitted && nameTempSensor.invalid }" required />
+                            <div *ngIf="tempForm.submitted && nameTempSensor.invalid" class="invalid-feedback">
+                                <div *ngIf="nameTempSensor.errors.required" class="text-danger">Nazwa czujnika jest wymagana</div>
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="minTempSensor">Minimalna temperatura</label>
+                            <input type="number" class="form-control" name="minTempSensor" [(ngModel)]="newTemperatureSensor.minValue" #minTempSensor="ngModel" [ngClass]="{ 'is-invalid': tempForm.submitted && minTempSensor.invalid }" required />
+                            <div *ngIf="tempForm.submitted && minTempSensor.invalid" class="invalid-feedback">
+                                <div *ngIf="minTempSensor.errors.required" class="text-danger">Wymagane jest podanie liczby</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxTempSensor">Maksymalna temperatura</label>
+                            <input type="number" class="form-control" name="maxTempSensor" [(ngModel)]="newTemperatureSensor.maxValue" #maxTempSensor="ngModel" [ngClass]="{ 'is-invalid': tempForm.submitted && maxTempSensor.invalid }" required />
+                            <div *ngIf="tempForm.submitted && maxTempSensor.invalid" class="invalid-feedback">
+                                <div *ngIf="maxTempSensor.errors.required" class="text-danger">Wymagane jest podanie liczby</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary">Dodaj czujnik</button>
+                        </div>
+                 </form>
+
+
+                </div>
+        </div>
+    </div>
+
+<!--FORMULARZ DODAWANIA CZUJNIKA RUCHU-->
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                     <h3>Czujniki ruchu</h3>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                         <div>Twoje czujniki</div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer">
+
+                    <form name="form" (ngSubmit)="motionForm.form.valid && addMotionSensor(newMotionSensor)" #motionForm="ngForm" novalidate>
+                        <div class="form-group">
+                            <label for="nameMotionSensor">Nazwa czujnika</label>
+                            <input type="text" class="form-control" name="nameMotionSensor" [(ngModel)]="newMotionSensor.name" #nameMotionSensor="ngModel" [ngClass]="{ 'is-invalid': motionForm.submitted && nameMotionSensor.invalid }" required />
+                            <div *ngIf="motionForm.submitted && nameMotionSensor.invalid" class="invalid-feedback">
+                                <div *ngIf="nameMotionSensor.errors.required" class="text-danger">Nazwa czujnika jest wymagana</div>
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success">Dodaj czujnik</button>
+                        </div>
+                 </form>
+
+
+                </div>
+        </div>
+    </div>
+ <!--FORMULARZ DODAWANIA CZUJNIKA DYMU-->
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <h3>Czujniki dymu</h3> 
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                        <div>Twoje czujniki</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+            <form name="form" (ngSubmit)="smokeForm.form.valid && addSmokeSensor(newSmokeSensor)" #smokeForm="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="nameSmokeSensor">Nazwa czujnika</label>
+                    <input type="text" class="form-control" name="nameSmokeSensor" [(ngModel)]="newSmokeSensor.name" #nameSmokeSensor="ngModel" [ngClass]="{ 'is-invalid': smokeForm.submitted && nameSmokeSensor.invalid }" required />
+                    <div *ngIf="smokeForm.submitted && nameSmokeSensor.invalid" class="invalid-feedback">
+                        <div *ngIf="nameSmokeSensor.errors.required" class="text-danger">Nazwa czujnika jest wymagana</div>
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="minSmokeSensor">Minimalny poziom dymu</label>
+                    <input type="number" class="form-control" name="minSmokeSensor" [(ngModel)]="newSmokeSensor.minValue" #minSmokeSensor="ngModel" [ngClass]="{ 'is-invalid': smokeForm.submitted && minSmokeSensor.invalid }" required />
+                    <div *ngIf="smokeForm.submitted && minSmokeSensor.invalid" class="invalid-feedback">
+                        <div *ngIf="minSmokeSensor.errors.required" class="text-danger">Wymagane jest podanie liczby</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="maxSmokeSensor">Maksymalnny poziom dymu</label>
+                    <input type="number" class="form-control" name="maxSmokeSensor" [(ngModel)]="newSmokeSensor.maxValue" #maxSmokeSensor="ngModel" [ngClass]="{ 'is-invalid': smokeForm.submitted && maxSmokeSensor.invalid }" required />
+                    <div *ngIf="smokeForm.submitted && maxSmokeSensor.invalid" class="invalid-feedback">
+                        <div *ngIf="maxSmokeSensor.errors.required" class="text-danger">Wymagane jest podanie liczby</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-warning">Dodaj czujnik</button>
+                </div>
+                </form>
+            </div>   
+        </div>
+    </div>
+<!--FORMULARZ DODAWANIA CZUJNIKA WILGOTNOŚCI-->
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <h3>Czujniki wilgotności</h3>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                            <div class="huge">13</div>
+                            <div>Twoje czujniki</div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer">
+                <form name="form" (ngSubmit)="humidityForm.form.valid && addHumiditySensor(newHumiditySensor)" #humidityForm="ngForm" novalidate>
+                    <div class="form-group">
+                        <label for="nameHumiditySensor">Nazwa czujnika</label>
+                        <input type="text" class="form-control" name="nameHumiditySensor" [(ngModel)]="newHumiditySensor.name" #nameHumiditySensor="ngModel" [ngClass]="{ 'is-invalid': humidityForm.submitted && nameHumiditySensor.invalid }" required />
+                        <div *ngIf="humidityForm.submitted && nameHumiditySensor.invalid" class="invalid-feedback">
+                            <div *ngIf="nameHumiditySensor.errors.required" class= "text-danger">Nazwa czujnika jest wymagana</div>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="minHumiditySensor">Minimalny poziom wilgotności</label>
+                        <input type="number" class="form-control" name="minHumiditySensor" [(ngModel)]="newHumiditySensor.minValue" #minHumiditySensor="ngModel" [ngClass]="{ 'is-invalid': humidityForm.submitted && minHumiditySensor.invalid }" required />
+                        <div *ngIf="humidityForm.submitted && minHumiditySensor.invalid" class="invalid-feedback">
+                            <div *ngIf="minHumiditySensor.errors.required" class="text-danger">Wymagane jest podanie liczby</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxHumiditySensor">Maksymalnny poziom wilgotności</label>
+                        <input type="number" class="form-control" name="maxHumiditySensor" [(ngModel)]="newHumiditySensor.maxValue" #maxHumiditySensor="ngModel" [ngClass]="{ 'is-invalid': humidityForm.submitted && maxHumiditySensor.invalid }" required />
+                        <div *ngIf="smokeForm.submitted && maxHumiditySensor.invalid" class="invalid-feedback">
+                            <div *ngIf="maxHumiditySensor.errors.required" class="text-danger">Wymagane jest podanie liczby</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger">Dodaj czujnik</button>
+                    </div>
+                    </form>
+                </div>
+            
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<app-sensors-layout [houseId]="houseId" [plan]="plan" [newSensor]="newSensor" (eventNumbersOfTempSensor)="numbersOfTempSensor($event)"></app-sensors-layout>

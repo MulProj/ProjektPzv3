@@ -1,0 +1,124 @@
+<div class="m_tab">
+<div *ngIf="temperatureSensors.length>0">
+<u><b>Czujniki temperatury</b></u>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Lp.</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Wartość minimalna</th>
+      <th scope="col">Wartość obecna</th>
+      <th scope="col">Wartość maksymalna</th>
+      <th scope="col">Operacje</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let ts of temperatureSensors ; index as i">
+    <tr>
+      <td>{{i+1}}</td>
+      <td>{{ts.name}}</td>
+      <td>{{ts.minValue}}</td>
+      <td>{{ts.temperature | number: '1.1-2'}}</td>
+      <td>{{ts.maxValue}}</td>
+      <td>
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+            </div> 
+         </td>
+  </tbody>
+</table>
+
+</div>
+  
+
+<div *ngIf="humiditySensors.length>0">
+<h1>Czujniki wilgotności</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Lp.</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Wartość minimalna</th>
+      <th scope="col">Wartość obecna</th>
+      <th scope="col">Wartość maksymalna</th>
+      <th scope="col">Operacje</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let hs of humiditySensors; index as i">
+      <tr>
+          <td>{{i+1}}</td>
+          <td>{{hs.name}}</td>
+          <td>{{hs.minValue}}</td>
+          <td>{{hs.humidity | number: '1.1-2'}}</td>
+          <td>{{hs.maxValue}}</td>
+          <td>
+              <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+                </div> 
+             </td>
+  </tbody>
+</table >
+</div>
+<div *ngIf="smokeSensors.length>0">
+<h1>Czujniki dymu</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Lp.</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Wartość minimalna</th>
+      <th scope="col">Wartość obecna</th>
+      <th scope="col">Wartość maksymalna</th>
+      <th scope="col">Operacje</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let ss of smokeSensors; index as i">
+      <tr>
+          <td>{{i+1}}</td>
+          <td>{{ss.name}}</td>
+          <td>{{ss.minValue}}</td>
+          <td>{{ss.smoke | number: '1.1-2'}}</td>
+          <td>{{ss.maxValue}}</td>
+          <td>
+              <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+                </div> 
+             </td>
+  </tbody>
+</table >
+</div>
+<div *ngIf="motionSensors.length>0">
+<h1>Czujniki ruchu</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Lp.</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Wartość obecna</th>
+      <th scope="col">flaga</th>
+      <th scope="col">Operacje</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let ms of motionSensors; index as i">
+      <tr>
+          <td>{{i+1}}</td>
+          <td>{{ms.name}}</td>
+          <td>{{ms.isMove}}</td>
+          <td>{{ms.isOn}}</td>
+          <td>
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+            </div> 
+         </td>
+  </tbody>
+</table >
+
+</div>
+
+
+</div>
+
+
