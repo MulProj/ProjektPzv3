@@ -24,11 +24,10 @@ export class ViewSensorsComponent implements OnInit {
 
   constructor(private httpService: HttpService) { }
 
-  /*Zmienna pobrana od rodzica-komponenta*/
+
   @Input()
   houseId
 
-  /*Zmienne potrzebne do czasowego pobierania danych z bazy*/
   timeLeft: number = 60;
   interval;
 
@@ -89,7 +88,7 @@ export class ViewSensorsComponent implements OnInit {
           this.motionSensors.push(motionSensor)
         }
       }
- 
+      
     })
 
     this.interval = setInterval(() => {
@@ -241,6 +240,16 @@ export class ViewSensorsComponent implements OnInit {
   editSensor(id: number)
   {
     console.log(id);
+  }
+
+  delSensor( id: number)
+  {
+    this.httpService.delSensor(id).subscribe(
+      success=>{
+        this.ngOnInit();
+      },
+      error =>{}
+    );
   }
 
 

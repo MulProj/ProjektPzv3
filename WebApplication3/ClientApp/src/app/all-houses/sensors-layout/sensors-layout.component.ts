@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, ViewChild, ElementRef, HostListener, SimpleChanges, EventEmitter, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpService } from '../../Service/http.service';
-import { Sensor, MotionSensor, SmokeSensor, HumiditySensor, TemperatureSensor } from 'src/app/app.component';
+import { MotionSensor, SmokeSensor, HumiditySensor, TemperatureSensor } from 'src/app/app.component';
 
 @Component({
   selector: 'app-sensors-layout',
@@ -21,21 +21,20 @@ constructor(private domSanitizer: DomSanitizer, private httpService: HttpService
 
 @Output()
   eventNumbersOfTempSensor = new EventEmitter<number>();
+
 ngOnChanges(changes: SimpleChanges)
 {
-  console.log("próba");
+  console.log(this.newSensor);
+  console.log(this.newSensor);
   if(this.newSensor==true)
   {
-    console.log("zmiana");
-    this.ngOnInit();
-    
+    this.newSensor=false;
+    console.log(this.newSensor);
+    this.drawSensors();
   }
-  
-
-  
 }
 
-//sensors: Sensor[]= new Array<Sensor>();
+
 
 motionSensors: MotionSensor[] = new Array<MotionSensor>();
 smokeSensors: SmokeSensor[] = new Array<SmokeSensor>();
@@ -43,6 +42,11 @@ humiditySensors: HumiditySensor[] = new Array<HumiditySensor>();
 temperatureSensors: TemperatureSensor[] = new Array<TemperatureSensor>();
 
 sensors$
+
+temperatureSensors$
+humiditySensors$
+smokeSensors$
+motionSensors$
 
 mouseX: number;
 mouseY: number;
@@ -63,29 +67,17 @@ public ctx: CanvasRenderingContext2D;
 
 ngAfterViewInit(): void {
   this.ctx = (<HTMLCanvasElement>this.canvas.nativeElement).getContext('2d');
-  console.log(this.newSensor);
-
-  
-console.log(this.canvas);
+  this.drawSensors();
 }
-ngOnInit(): void {
-  console.log("ngOnInit");
-  this.newSensor=false;
-this.temperatureSensor.src="../../../assets/sensor/temp.png";
-this.humiditySensor.src="../../../assets/sensor/hum.png";
-this.smokeSensor.src="../../../assets/sensor/smoke.png";
-this.motionSensor.src="../../../assets/sensor/move.png";
-
-
-this.sensors$ = this.httpService.getSensorsByHouseId(this.houseId);
-
- this.sensors$.subscribe(sensors => {
-  for(var i =0; i<sensors.length; i++)
-  {
-    switch(sensors[i].type)
+load()
+{
+  this.temperatureSensors$.subscribe(sensors =>{
+    for(var i =0; i<sensors.length; i++)
     {
-      case "Temperature": { 
+      while(this.temperatureSensors.length<sensors.length)
+      {
         var ts: TemperatureSensor=({
+          temperature: sensors[i].temperature,
           sensorId: sensors[i].sensorId,
           coordinateX: sensors[i].coordinateX,
           coordinateY: sensors[i].coordinateY,
@@ -97,25 +89,27 @@ this.sensors$ = this.httpService.getSensorsByHouseId(this.houseId);
           houseId: sensors[i].houseId,
         })
         this.temperatureSensors.push(ts);
-        break; 
-      } 
-      case "Humidity": { 
-        var hs: HumiditySensor=({
-          sensorId: sensors[i].sensorId,
-          coordinateX: sensors[i].coordinateX,
-          coordinateY: sensors[i].coordinateY,
-          type: sensors[i].type,
-          maxValue: sensors[i].maxValue,
-          minValue: sensors[i].minValue,
-          isOn: sensors[i].isOn,
-          name: sensors[i].name,
-          houseId: sensors[i].houseId,
-        })
-        this.humiditySensors.push(hs);
-        break; 
-      } 
-      case "Smoke": { 
+      }
+      this.temperatureSensors[i].temperature=sensors[i].temperature;
+      this.temperatureSensors[i].sensorId= sensors[i].sensorId;
+      this.temperatureSensors[i].coordinateX= sensors[i].coordinateX;
+      this.temperatureSensors[i].coordinateY= sensors[i].coordinateY;
+      this.temperatureSensors[i].type= sensors[i].type;
+      this.temperatureSensors[i].maxValue= sensors[i].maxValue;
+      this.temperatureSensors[i].minValue= sensors[i].minValue;
+      this.temperatureSensors[i].isOn= sensors[i].isOn;
+      this.temperatureSensors[i].name= sensors[i].name;
+      this.temperatureSensors[i].houseId= sensors[i].houseId;
+  
+    }
+  })
+  
+  this.smokeSensors$.subscribe(sensors =>{
+    for(var i =0; i<sensors.length; i++)
+    {
+      while(this.smokeSensors.length<sensors.length){
         var ss: SmokeSensor=({
+          smoke: sensors[i].smoke,
           sensorId: sensors[i].sensorId,
           coordinateX: sensors[i].coordinateX,
           coordinateY: sensors[i].coordinateY,
@@ -127,10 +121,28 @@ this.sensors$ = this.httpService.getSensorsByHouseId(this.houseId);
           houseId: sensors[i].houseId,
         })
         this.smokeSensors.push(ss);
-        break; 
-      } 
-      case "Motion": { 
-        var ms: MotionSensor=({
+      }
+      this.smokeSensors[i].smoke= sensors[i].smoke;
+      this.smokeSensors[i].sensorId= sensors[i].sensorId;
+      this.smokeSensors[i].coordinateX= sensors[i].coordinateX;
+      this.smokeSensors[i].coordinateY= sensors[i].coordinateY;
+      this.smokeSensors[i].type= sensors[i].type;
+      this.smokeSensors[i].maxValue= sensors[i].maxValue;
+      this.smokeSensors[i].minValue= sensors[i].minValue;
+      this.smokeSensors[i].isOn= sensors[i].isOn;
+      this.smokeSensors[i].name= sensors[i].name;
+      this.smokeSensors[i].houseId= sensors[i].houseId;
+  
+  
+    }
+  })
+  
+  this.humiditySensors$.subscribe(sensors =>{
+    for(var i =0; i<sensors.length; i++)
+    {
+      while(this.humiditySensors.length<sensors.length){
+        var hs: HumiditySensor=({
+          humidity: sensors[i].humidity,
           sensorId: sensors[i].sensorId,
           coordinateX: sensors[i].coordinateX,
           coordinateY: sensors[i].coordinateY,
@@ -141,20 +153,85 @@ this.sensors$ = this.httpService.getSensorsByHouseId(this.houseId);
           name: sensors[i].name,
           houseId: sensors[i].houseId,
         })
-        this.motionSensors.push(ms);
-        
-        break; 
-      } 
-
+        this.humiditySensors.push(hs);
+      }
+      this.humiditySensors[i].humidity= sensors[i].humidity;
+      this.humiditySensors[i].sensorId= sensors[i].sensorId;
+      this.humiditySensors[i].coordinateX= sensors[i].coordinateX;
+      this.humiditySensors[i].coordinateY= sensors[i].coordinateY;
+      this.humiditySensors[i].type= sensors[i].type;
+      this.humiditySensors[i].maxValue= sensors[i].maxValue;
+      this.humiditySensors[i].minValue= sensors[i].minValue;
+      this.humiditySensors[i].isOn= sensors[i].isOn;
+      this.humiditySensors[i].name= sensors[i].name;
+      this.humiditySensors[i].houseId= sensors[i].houseId;
+  
+      }
+  
+  })
+  
+  this.motionSensors$.subscribe(sensors =>{
+    for(var i =0; i<sensors.length; i++)
+    {
+      while(this.motionSensors.length<sensors.length)
+      {
+      var ms: MotionSensor=({
+        isMove: sensors[i].isMove,
+        sensorId: sensors[i].sensorId,
+        coordinateX: sensors[i].coordinateX,
+        coordinateY: sensors[i].coordinateY,
+        type: sensors[i].type,
+        maxValue: sensors[i].maxValue,
+        minValue: sensors[i].minValue,
+        isOn: sensors[i].isOn,
+        name: sensors[i].name,
+        houseId: sensors[i].houseId,
+      })
+      this.motionSensors.push(ms);
     }
-    this.eventNumbersOfTempSensor.emit(this.temperatureSensors.length);
-  }
-  console.log(this.temperatureSensors)
-  this.drawSensors();  
-})
-
+    this.motionSensors[i].isMove= sensors[i].isMove;
+    this.motionSensors[i].sensorId= sensors[i].sensorId;
+    this.motionSensors[i].coordinateX= sensors[i].coordinateX;
+    this.motionSensors[i].coordinateY= sensors[i].coordinateY;
+    this.motionSensors[i].type= sensors[i].type;
+    this.motionSensors[i].maxValue= sensors[i].maxValue;
+    this.motionSensors[i].minValue= sensors[i].minValue;
+    this.motionSensors[i].isOn= sensors[i].isOn;
+    this.motionSensors[i].name= sensors[i].name;
+    this.motionSensors[i].houseId= sensors[i].houseId;
+  
+    }
+  
+  })
+  this.drawSensors(); 
 
 }
+ngOnInit(): void {
+  
+
+this.newSensor=false;
+this.temperatureSensor.src="../../../assets/sensor/temp.png";
+this.humiditySensor.src="../../../assets/sensor/hum.png";
+this.smokeSensor.src="../../../assets/sensor/smoke.png";
+this.motionSensor.src="../../../assets/sensor/move.png";
+
+
+this.ctx = (<HTMLCanvasElement>this.canvas.nativeElement).getContext('2d');
+this.temperatureSensors$ = this.httpService.getTemperatureSensorsByHouseId(this.houseId)
+this.smokeSensors$ = this.httpService.getSmokeSensorsByHouseId(this.houseId);
+this.humiditySensors$ = this.httpService.getHumiditySensorsByHouseId(this.houseId);
+this.motionSensors$ = this.httpService.getMotionSensorsByHouseId(this.houseId);
+
+this.load();
+
+
+  this.eventNumbersOfTempSensor.emit(this.temperatureSensors.length);
+  console.log("blaaa");
+  console.log(this.temperatureSensors);
+
+  this.drawSensors(); 
+}
+
 
 @HostListener('mousemove', ['$event']) 
 onmousemove(event: MouseEvent)
@@ -202,25 +279,25 @@ onmousedown()
     switch(this.type){
       case "Temperature": { 
         this.dragSensorX=this.mouseX-this.temperatureSensors[this.index].coordinateX;
-        this.dragSensorY=this.mouseX-this.temperatureSensors[this.index].coordinateX;
+        this.dragSensorY=this.mouseY-this.temperatureSensors[this.index].coordinateY;
         console.log(this.type+" drag:"+this.drag+" id: "+this.index )
         break; 
       } 
       case "Humidity": { 
         this.dragSensorX=this.mouseX-this.humiditySensors[this.index].coordinateX;
-        this.dragSensorY=this.mouseX-this.humiditySensors[this.index].coordinateX;
+        this.dragSensorY=this.mouseY-this.humiditySensors[this.index].coordinateY;
         console.log(this.type+" drag:"+this.drag+" id: "+this.index )
         break; 
       } 
       case "Smoke": { 
         this.dragSensorX=this.mouseX-this.smokeSensors[this.index].coordinateX;
-        this.dragSensorY=this.mouseX-this.smokeSensors[this.index].coordinateX;
+        this.dragSensorY=this.mouseY-this.smokeSensors[this.index].coordinateY;
         console.log(this.type+" drag:"+this.drag+" id: "+this.index )
         break; 
       } 
       case "Motion": { 
         this.dragSensorX=this.mouseX-this.motionSensors[this.index].coordinateX;
-        this.dragSensorY=this.mouseX-this.motionSensors[this.index].coordinateX;
+        this.dragSensorY=this.mouseY-this.motionSensors[this.index].coordinateY;
         console.log(this.type+" drag:"+this.drag+" id: "+this.index )
         break; 
       } 

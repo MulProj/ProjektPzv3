@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DefaultPageComponent } from './default-page/default-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AllHousesComponent } from './all-houses/all-houses.component';
 import { AddHouseComponent } from './add-house/add-house.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
   { path: 'all-houses', component: AllHousesComponent },
   { path: 'all-houses/add-sensors', component: AddSensorsComponent },
   { path: 'add-house', component: AddHouseComponent },
-  { path: 'default', component: DefaultPageComponent },
   { path: '**', component: PageNotFoundComponent }
   
 

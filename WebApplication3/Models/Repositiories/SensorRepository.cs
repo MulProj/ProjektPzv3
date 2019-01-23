@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApplication3.Models.Database;
 using WebApplication3.Models.Interfaces;
+using WebApplication3.Models.Utils;
 
 namespace WebApplication3.Models.Repositiories
 {
@@ -26,13 +27,10 @@ namespace WebApplication3.Models.Repositiories
                 throw new Exception("House object cannot be null");
             }
 
-            //sensor.SensorId = 0;
             sensor.House = house;
             sensor.HouseId = house.HouseId;
-            sensor.Type = "Humidity";
-            sensor.MinValue = 0.2;
-            sensor.MaxValue = 0.4;
-
+            sensor.Type = ConstValues.HUMIDITY;
+            
             _databaseContext.Sensors.Add(sensor);
             _databaseContext.SaveChanges();
 
@@ -50,14 +48,11 @@ namespace WebApplication3.Models.Repositiories
             {
                 throw new Exception("House object cannot be null");
             }
-
-            //sensor.SensorId = 0;
+            
             sensor.House = house;
             sensor.HouseId = house.HouseId;
-            sensor.Type = "Motion";
-            sensor.MinValue = null;
-            sensor.MaxValue = null;
-
+            sensor.Type = ConstValues.MOTION;
+            
             _databaseContext.Sensors.Add(sensor);
             _databaseContext.SaveChanges();
 
@@ -75,14 +70,11 @@ namespace WebApplication3.Models.Repositiories
             {
                 throw new Exception("House object cannot be null");
             }
-
-            //sensor.SensorId = 0;
+            
             sensor.House = house;
             sensor.HouseId = house.HouseId;
-            sensor.Type = "Smoke";
-            sensor.MinValue = 0;
-            sensor.MaxValue = 0.2;
-
+            sensor.Type = ConstValues.SMOKE;
+            
             _databaseContext.Sensors.Add(sensor);
             _databaseContext.SaveChanges();
 
@@ -101,13 +93,10 @@ namespace WebApplication3.Models.Repositiories
                 throw new Exception("House object cannot be null");
             }
 
-            //sensor.SensorId = 0;
             sensor.House = house;
             sensor.HouseId = house.HouseId;
-            sensor.Type = "Temperature";
-            //sensor.MinValue = 18;
-            //sensor.MaxValue = 25;
-
+            sensor.Type = ConstValues.TEMPERATURE;
+            
             _databaseContext.Sensors.Add(sensor);
             _databaseContext.SaveChanges();
 
@@ -135,26 +124,6 @@ namespace WebApplication3.Models.Repositiories
             return _databaseContext.Sensors.ToList();
         }
 
-        public List<Sensor> GetHumiditySensorsByHouseId(int houseId)
-        {
-            if (houseId <= 0)
-            {
-                throw new Exception("Id cannot be less than 0");
-            }
-
-            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == "Humidity").ToList();
-        }
-
-        public List<Sensor> GetMotionSensorsByHouseId(int houseId)
-        {
-            if (houseId <= 0)
-            {
-                throw new Exception("Id cannot be less than 0");
-            }
-
-            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == "Motion").ToList();
-        }
-
         public Sensor GetSensor(int sensorId)
         {
             if (sensorId <= 0)
@@ -175,6 +144,26 @@ namespace WebApplication3.Models.Repositiories
             return _databaseContext.Sensors.Where(id => id.HouseId == houseId).ToList();
         }
 
+        public List<Sensor> GetHumiditySensorsByHouseId(int houseId)
+        {
+            if (houseId <= 0)
+            {
+                throw new Exception("Id cannot be less than 0");
+            }
+
+            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == ConstValues.HUMIDITY).ToList();
+        }
+
+        public List<Sensor> GetMotionSensorsByHouseId(int houseId)
+        {
+            if (houseId <= 0)
+            {
+                throw new Exception("Id cannot be less than 0");
+            }
+
+            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == ConstValues.MOTION).ToList();
+        }
+
         public List<Sensor> GetSmokeSensorsByHouseId(int houseId)
         {
             if (houseId <= 0)
@@ -182,7 +171,7 @@ namespace WebApplication3.Models.Repositiories
                 throw new Exception("Id cannot be less than 0");
             }
 
-            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == "Smoke").ToList();
+            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == ConstValues.SMOKE).ToList();
         }
 
         public List<Sensor> GetTemperatureSensorsByHouseId(int houseId)
@@ -192,7 +181,7 @@ namespace WebApplication3.Models.Repositiories
                 throw new Exception("Id cannot be less than 0");
             }
 
-            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == "Temperature").ToList();
+            return _databaseContext.Sensors.Where(s => s.HouseId == houseId && s.Type == ConstValues.TEMPERATURE).ToList();
         }
 
         public int UpdateHumiditySensor(HumiditySensor sensor)

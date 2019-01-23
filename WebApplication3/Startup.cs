@@ -32,8 +32,8 @@ namespace WebApplication3
             services.AddScoped<ISensorRepository, SensorRepository>();
             services.AddScoped<IHouseRepository, HouseRepository>();
             services.AddScoped<ISensorHistoryRepository, SensorHistoryRepository>();
-            services.AddSingleton<IHostedService, MyHostedService>();
-            //services.AddHostedService<MyHostedService>();
+            //services.AddSingleton<IHostedService, MyHostedService>();
+            services.AddHostedService<MyHostedService>();
             //services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
 
             services.AddSpaStaticFiles(configuration =>

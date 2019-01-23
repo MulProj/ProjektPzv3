@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { House, Sensor } from '../app.component';
+import { House, Sensor, TemperatureSensor, SmokeSensor, HumiditySensor, MotionSensor } from '../app.component';
 
 @Injectable()
 
@@ -23,8 +23,35 @@ export class HttpService {
   getSensorsByHouseId(houseId: number):Observable<Array<Sensor>>{
     return this.http.get<Array<Sensor>>('https://localhost:5001/api/sensors/getsensorsbyhouseid?houseid='+houseId)
   }
-  getTemperatureHistoryByHouseId(houseId: number):Observable<Array<Sensor>>{
-    return this.http.get<Array<Sensor>>('https://localhost:5001/api/sensorhistories/gettemperaturesensorsbyhouseid?houseid='+houseId)
+
+  getTemperatureSensorsByHouseId(houseId: number): Observable<Array<TemperatureSensor>>{
+    return this.http.get<Array<TemperatureSensor>>('https://localhost:5001/api/sensors/gettemperaturesensorsbyhouseid?houseid='+houseId)
+  }
+  getHumiditySensorsByHouseId(houseId: number): Observable<Array<HumiditySensor>>{
+    return this.http.get<Array<HumiditySensor>>('https://localhost:5001/api/sensors/gethumiditysensorsbyhouseid?houseid='+houseId)
+  }
+  getSmokeSensorsByHouseId(houseId: number): Observable<Array<SmokeSensor>>{
+    return this.http.get<Array<SmokeSensor>>('https://localhost:5001/api/sensors/getsmokesensorsbyhouseid?houseid='+houseId)
+  }
+  getMotionSensorsByHouseId(houseId: number): Observable<Array<MotionSensor>>{
+    return this.http.get<Array<MotionSensor>>('https://localhost:5001/api/sensors/getmotionsensorsbyhouseid?houseid='+houseId)
+  }
+  delSensor(sensorId: number):Observable<Sensor>{
+    return this.http.get('https://localhost:5001/api/sensors/deletesensor?sensorid='+ sensorId)
+  }
+
+  /*HISTORIA*/
+  getTemperatureHistoryByHouseId(houseId: number, dataAmount: number):Observable<Array<Sensor>>{
+    return this.http.get<Array<Sensor>>('https://localhost:5001/api/sensorhistories/gettemperaturesensorsbyhouseid?houseid='+houseId+ '&dataAmount='+dataAmount)
+  }
+  getHumidityHistoryByHouseId(houseId: number, dataAmount: number):Observable<Array<Sensor>>{
+    return this.http.get<Array<Sensor>>('https://localhost:5001/api/sensorhistories/gethumiditysensorsbyhouseid?houseid='+houseId+ '&dataAmount='+dataAmount)
+  }
+  getSmokeHistoryByHouseId(houseId: number, dataAmount: number):Observable<Array<Sensor>>{
+    return this.http.get<Array<Sensor>>('https://localhost:5001/api/sensorhistories/getsmokesensorsbyhouseid?houseid='+houseId+ '&dataAmount='+dataAmount)
+  }
+  getMotionHistoryByHouseId(houseId: number, dataAmount: number):Observable<Array<Sensor>>{
+    return this.http.get<Array<Sensor>>('https://localhost:5001/api/sensorhistories/getmotionsensorsbyhouseid?houseid='+houseId+ '&dataAmount='+dataAmount)
   }
   updateTemperatureSensor(sensor: Sensor):Observable<Sensor>{
     return this.http.post('https://localhost:5001/api/Sensors/UpdateTemperatureSensor', sensor)

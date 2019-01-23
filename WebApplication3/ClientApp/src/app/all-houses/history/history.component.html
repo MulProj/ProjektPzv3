@@ -1,10 +1,64 @@
-<div>
-  <div style="display: block">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType"></canvas>
+<div class="panel-footer" style="display: block;">
+  <form name="form" (ngSubmit)="historyForm.form.valid && zmienParametry()" #historyForm="ngForm" novalidate>
+    <div class="form-group">
+      <label for="historySensor">Historię z ilu odczytów chcesz przeglądać?</label>
+      <input type="number" class="form-control" name="historySensor" [(ngModel)]="userNumbers" #historySensor="ngModel" [ngClass]="{ 'is-invalid': historyForm.submitted && historySensor.invalid }" required />
+      <div *ngIf="historyForm.submitted && historySensor.invalid" class="invalid-feedback">
+          <div *ngIf="historySensor.errors.required" class="text-danger">Tu powinna być wpisana liczba</div>
+          
+      </div>
   </div>
+  <div class="form-group">
+    <button class="btn btn-primary">Zatwierdź</button>
 </div>
+
+  </form>
+</div>
+
+
+<div class="panel-footer" style="display: block;" *ngIf="numberOfValues>0">
+  <canvas baseChart height="400px"
+              [datasets]="tempLineChartData"
+              [labels]="tempLineChartLabels"
+              [options]="tempLineChartOptions"
+              [colors]="tempLineChartColors"
+              [chartType]="tempLineChartType">
+            </canvas>
+  </div>
+
+
+  <div class="panel-footer" style="display: block;" *ngIf="numberOfValues>0">
+    <canvas baseChart height="400px"
+                [datasets]="humLineChartData"
+                [labels]="humLineChartLabels"
+                [options]="humLineChartOptions"
+                [colors]="humLineChartColors"
+                [chartType]="humLineChartType">
+              </canvas>
+    </div>
+
+  <div class="panel-footer" style="display: block;" *ngIf="numberOfValues>0">
+    <canvas baseChart height="400px"
+                [datasets]="smoLineChartData"
+                [labels]="smoLineChartLabels"
+                [options]="smoLineChartOptions"
+                [colors]="smoLineChartColors"
+                [chartType]="smoLineChartType">
+              </canvas>
+    </div>
+
+
+    <div class="panel-footer" style="display: block;" *ngIf="numberOfValues>0">
+      <canvas baseChart height="400px"
+                  [datasets]="motLineChartData"
+                  [labels]="motLineChartLabels"
+                  [options]="motLineChartOptions"
+                  [colors]="motLineChartColors"
+                  [chartType]="motLineChartType">
+                </canvas>
+      </div>
+
+
+
+
+

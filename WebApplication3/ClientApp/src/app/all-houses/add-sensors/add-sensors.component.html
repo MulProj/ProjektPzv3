@@ -1,5 +1,4 @@
-
-
+<div class="row">
 <div id="przejscie">
 <!--FORMULARZ DODAWANIA CZUJNIKA TEMPERATURY-->
     <div class="col-lg-3 col-md-6">
@@ -172,14 +171,20 @@
                     </div>
                     </form>
                 </div>
-            
         </div>
     </div>
 
 </div>
+</div>
+
+<div class="text-center">
+<canvas  #canvas width="800" height="660" 
+[ngStyle]="{'background-image': 'url(' + plan + ')',
+'background-repeat': 'no-repeat',
+'background-size': '800px 600px',
+'background-position': 'bottom'}">
+</canvas>  
+</div>
 
 
 
-
-
-<app-sensors-layout [houseId]="houseId" [plan]="plan" [newSensor]="newSensor" (eventNumbersOfTempSensor)="numbersOfTempSensor($event)"></app-sensors-layout>

@@ -4,6 +4,7 @@ using System.Linq;
 using WebApplication3.Models.Database;
 using WebApplication3.Models.Interfaces;
 using MoreLinq;
+using WebApplication3.Models.Utils;
 
 namespace WebApplication3.Models.Repositiories
 {
@@ -134,52 +135,72 @@ namespace WebApplication3.Models.Repositiories
             return _databaseContext.SensorHistories.Where(id => id.HouseId == houseId).ToList();
         }
 
-        public List<SensorHistory> GetTemperatureSensorsByHouseIdHistory(int houseId)
+        public List<SensorHistory> GetTemperatureSensorsByHouseIdHistory(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 throw new Exception("Id cannot be less than 0");
             }
 
-            var sensorsTemperatureCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Temperature").Count();
+            var sensorsTemperatureCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.TEMPERATURE).Count();
 
-            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Temperature").Skip(sensorsTemperatureCount - 5).ToList();
+            if (sensorsTemperatureCount - dataAmount < dataAmount)
+            {
+                return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.TEMPERATURE).ToList();
+            }
+
+            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.TEMPERATURE).Skip(sensorsTemperatureCount - dataAmount).ToList();
         }
 
-        public List<SensorHistory> GetHumiditySensorsByHouseIdHistory(int houseId)
+        public List<SensorHistory> GetHumiditySensorsByHouseIdHistory(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 throw new Exception("Id cannot be less than 0");
             }
 
-            var sensorsHumidityCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Humidity").Count();
+            var sensorsHumidityCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.HUMIDITY).Count();
 
-            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Humidity").Skip(sensorsHumidityCount - 5).ToList();
+            if (sensorsHumidityCount - dataAmount < dataAmount)
+            {
+                return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.HUMIDITY).ToList();
+            }
+
+            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.HUMIDITY).Skip(sensorsHumidityCount - dataAmount).ToList();
         }
 
-        public List<SensorHistory> GetSmokeSensorsByHouseIdHistory(int houseId)
+        public List<SensorHistory> GetSmokeSensorsByHouseIdHistory(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 throw new Exception("Id cannot be less than 0");
             }
 
-            var sensorsSmokeCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Smoke").Count();
+            var sensorsSmokeCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.SMOKE).Count();
 
-            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Smoke").Skip(sensorsSmokeCount - 5).ToList();
+            if (sensorsSmokeCount - dataAmount < dataAmount)
+            {
+                return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.SMOKE).ToList();
+            }
+
+            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.SMOKE).Skip(sensorsSmokeCount - dataAmount).ToList();
         }
 
-        public List<SensorHistory> GetMotionSensorsByHouseIdHistory(int houseId)
+        public List<SensorHistory> GetMotionSensorsByHouseIdHistory(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 throw new Exception("Id cannot be less than 0");
             }
 
-            var sensorsMotionCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Motion").Count();
+            var sensorsMotionCount = _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.MOTION).Count();
 
-            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == "Motion").Skip(sensorsMotionCount - 5).ToList();
+            if (sensorsMotionCount - dataAmount < dataAmount)
+            {
+                return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.MOTION).ToList();
+            }
+
+            return _databaseContext.SensorHistories.Where(s => s.HouseId == houseId && s.Type == ConstValues.MOTION).Skip(sensorsMotionCount - dataAmount).ToList();
         }
     }
 }

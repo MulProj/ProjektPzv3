@@ -44,47 +44,47 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetTemperatureSensorsByHouseId(int houseId)
+        public IActionResult GetTemperatureSensorsByHouseId(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 return BadRequest();
             }
 
-            return new JsonResult(_sensorHistoryRepository.GetTemperatureSensorsByHouseIdHistory(houseId));
+            return new JsonResult(_sensorHistoryRepository.GetTemperatureSensorsByHouseIdHistory(houseId, dataAmount));
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetHumiditySensorsByHouseId(int houseId)
+        public IActionResult GetHumiditySensorsByHouseId(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 return BadRequest();
             }
 
-            return new JsonResult(_sensorHistoryRepository.GetHumiditySensorsByHouseIdHistory(houseId));
+            return new JsonResult(_sensorHistoryRepository.GetHumiditySensorsByHouseIdHistory(houseId, dataAmount));
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetSmokeSensorsByHouseId(int houseId)
+        public IActionResult GetSmokeSensorsByHouseId(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 return BadRequest();
             }
 
-            return new JsonResult(_sensorHistoryRepository.GetSmokeSensorsByHouseIdHistory(houseId));
+            return new JsonResult(_sensorHistoryRepository.GetSmokeSensorsByHouseIdHistory(houseId, dataAmount));
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetMotionSensorsByHouseId(int houseId)
+        public IActionResult GetMotionSensorsByHouseId(int houseId, int dataAmount)
         {
             if (houseId <= 0)
             {
                 return BadRequest();
             }
 
-            return new JsonResult(_sensorHistoryRepository.GetMotionSensorsByHouseIdHistory(houseId));
+            return new JsonResult(_sensorHistoryRepository.GetMotionSensorsByHouseIdHistory(houseId, dataAmount));
         }
     }
 }

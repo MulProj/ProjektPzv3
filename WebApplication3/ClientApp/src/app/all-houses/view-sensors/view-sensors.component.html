@@ -1,6 +1,6 @@
-<div class="m_tab">
+<div  class="m_tab panel-footer" >
 <div *ngIf="temperatureSensors.length>0">
-<u><b>Czujniki temperatury</b></u>
+<h3><u><b>Czujniki temperatury</b></u></h3>
 <table class="table">
   <thead>
     <tr>
@@ -32,7 +32,7 @@
   
 
 <div *ngIf="humiditySensors.length>0">
-<h1>Czujniki wilgotności</h1>
+<h3><u><b>Czujniki wilgotności</b></u></h3>
 <table class="table">
   <thead>
     <tr>
@@ -53,15 +53,15 @@
           <td>{{hs.maxValue}}</td>
           <td>
               <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+                  <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(hs.sensorId)">Edytuj czujnik</button>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(hs.sensorId)">Usuń czujnik</button>     
                 </div> 
              </td>
   </tbody>
 </table >
 </div>
 <div *ngIf="smokeSensors.length>0">
-<h1>Czujniki dymu</h1>
+<h3><u><b>Czujniki dymu</b></u></h3>
 <table class="table">
   <thead>
     <tr>
@@ -82,22 +82,22 @@
           <td>{{ss.maxValue}}</td>
           <td>
               <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+                  <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ss.sensorId)">Edytuj czujnik</button>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ss.sensorId)">Usuń czujnik</button>     
                 </div> 
              </td>
   </tbody>
 </table >
 </div>
 <div *ngIf="motionSensors.length>0">
-<h1>Czujniki ruchu</h1>
+<h3><u><b>Czujniki ruchu</b></u></h3>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Lp.</th>
       <th scope="col">Nazwa</th>
       <th scope="col">Wartość obecna</th>
-      <th scope="col">flaga</th>
+      <th colspan="2">flaga</th>
       <th scope="col">Operacje</th>
     </tr>
   </thead>
@@ -106,11 +106,10 @@
           <td>{{i+1}}</td>
           <td>{{ms.name}}</td>
           <td>{{ms.isMove}}</td>
-          <td>{{ms.isOn}}</td>
+          <td colspan="2">{{ms.isOn}}</td>
           <td>
           <div class="btn-group" role="group">
-              <button type="button" class="btn btn-primary btn-sm" (click)="editSensor(ts.sensorId)">Edytuj czujnik</button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ts.sensorId)">Usuń czujnik</button>     
+              <button type="button" class="btn btn-danger btn-sm" (click)="delSensor(ms.sensorId)">Usuń czujnik</button>     
             </div> 
          </td>
   </tbody>
